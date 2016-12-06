@@ -1,0 +1,49 @@
+@import "./rem-config";
+@import "./rem";
+
+$i: map-get($rem-config, "width")/map-get($rem-config, "rate");
+$base-width: $i;
+$base-size: map-get($rem-config, "base");
+$min-width: map-get($rem-config, "min-width");
+$max-width: map-get($rem-config, "max-width");
+$step: map-get($rem-config, "step");
+
+html {
+    font-size: $base-size + px;
+}
+
+
+@while $i > $min-width {
+    $end: $i + $step -1;
+    $i: if($i - $step < $min-width, $min-width, $i - $step);
+    @media  (min-width: $i + px) and (max-width: $end + px) {
+        html {
+            font-size: $base-size * ($i/$base-width) + px;
+        }
+    }
+}
+@media  (max-width: $i + px) {
+    html {
+        font-size: $base-size * ($i/$base-width) + px;
+    }
+}
+$i: $base-width;
+@while $i < $max-width {
+    $start: $i - $step + 1;
+    $i: if($i + $step > $max-width, $max-width, $i + $step);
+    @media  (min-width: ($i - $step + 1) + px) and (max-width: $i + px) {
+        html {
+            font-size: $base-size * ($i/$base-width) + px;
+        }
+    }
+}
+@media  (min-width: $i + px) {
+    html {
+        font-size: $base-size * ($i/$base-width) + px;
+    }
+}
+
+
+body {
+    font-size: rEm(32);
+}
