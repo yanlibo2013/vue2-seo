@@ -1,27 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as actions from './actions'
-import * as getters from './getters'
-import createLogger from '../plugins/logger'
 
-import  common from "./modules/common";
-import  list from "src/store/modules/list";
-import  loading from 'src/store/modules/loading'
+import productListStore from './modules/productListStore'
+import userInfoStore from './modules/userInfoStore'
+import categoryStore from './modules/categoryStore'
 
 Vue.use(Vuex);
 
-const debug = process.env.NODE_ENV !== 1;
+const store = new Vuex.Store({
+	modules: {
+	    productListStore,
+	    userInfoStore,
+	    categoryStore
+	},
+});
 
-
-
-export default new Vuex.Store({
-  actions,
-  getters,
-  modules: {
-    common,
-    list,
-    loading
-  },
-  /*strict: debug,*/
-  plugins: debug ? [createLogger()] : []
-})
+export default store

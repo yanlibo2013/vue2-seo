@@ -1,61 +1,49 @@
-/*
-* @Author: henry yan
-* @Date:   2016-10-19 16:47:00
-* @Last Modified by:   henry yan
-* @Last Modified time: 2016-10-19 16:47:00
-* @describe
-* 根组件，主要用于引入全局的css和js
-*/
 <template>
-  <div>
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
+  <div id="app">
+  	<!-- 这里是为了去除chrome自动填写账号密码造成的屎黄色输入框bug -->
+		<input type="text" style="display:none"/>
+		<input type="password" style="display:none"/>
+		
+    <div class="header">
+      <cyheader v-show="showHeader"></cyheader>
+    </div>
+    <transition name="slide" mode="out-in">
+      <router-view class="view"></router-view>
     </transition>
-    <cloading v-show='getLoading'></cloading>
-  </div>
+  	<div class="footer">
+      <cyfooter></cyfooter>
+    </div>
+  </div>    
 </template>
 
-<script>
- /* import '../static/style/reset.css'*/
-  /*import store from 'src/store/index';*/
-  import {mapGetters, mapActions } from 'vuex';
-  import attachFastclick from 'fastclick';
-  import cloading from 'components/common/index'
-
-  export default {
-    components: {
-      cloading
-    },
-    created () {
-      this.$store.dispatch('getDevicetype');
-      this.updateLoading(false);
-    },
-    mounted () {
-      attachFastclick.attach(window.document.body);
-    },
-    computed: mapGetters([
-      'getLoading'
-    ]),
-    methods: mapActions([
-      'updateLoading'
-    ]),
-    /*store*/
-  }
-
-</script>
-<style>
-  @import './assets/style/reset.scss';
-  .fade-enter-active, .fade-leave-active {
-    transition: all .5s ease;
-  }
-  .fade-enter {
-    opacity: 0;
-    transform:translate(20px, 0);
-  }
-  .fade-leave-active {
-    opacity: 0;
-    transform:translate(20px, 0);
-  }
+<style scoped>
+ 	@import './assets/css/global.css';
 </style>
+<script>
 
+  import cyheader from './components/headandfoot/CyHeader.vue'
+  import cyfooter from './components/headandfoot/CyFooter.vue'
+   
+	export default {
+		computed: {
+			showHeader: function() {
+				let showHeader = true;
+				// 首页不显示头
+				if(this.$route.path == "/index.html" || (this.$route.path == "/")) {
+					showHeader = false;
+				}
+
+				// 产品预览页面不显示头
+				if(!!this.$route.path.match (/\/preview\//)) {
+					showHeader = false;
+				}
+				return showHeader;
+			}
+		},
+		components: {
+			cyfooter,
+			cyheader
+		}
+	}
+</script>
 

@@ -14,7 +14,8 @@
     "vue": "^2.0.1",
     "vuex": "^2.0.0",
     "vue-router": "^2.0.0",
-    "mint-ui": "latest"
+    "mint-ui": "latest",
+    "vuex-router-sync": "^3.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
@@ -70,6 +71,11 @@
     "sass-loader": "^4.0.0",
     "fastclick": "^1.0.6",
     "node-sass": "^3.8.0",
-    "reqwest": "^2.0.5"
+    "reqwest": "^2.0.5",
+    "axios": "^0.15.2",
+    "qiniu": "^6.1.13",
+    "qiniu-js": "^1.0.14-beta",
+    "qiniu4js": "^1.0.6",
+    "element-ui": "^1.0.0-rc.8"
   }
 }

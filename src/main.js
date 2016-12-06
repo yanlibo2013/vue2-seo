@@ -1,23 +1,21 @@
-/*
- * @Author: henry yan
- * @Date:   2016-10-19 16:47:00
- * @Last Modified by:   henry yan
- * @Last Modified time: 2016-10-19 16:47:00
- */
 import Vue from 'vue'
-import App from './app.vue'
-import router from './routes/';
+import App from './App.vue'
 import store from './store'
-import Mint from 'mint-ui';
-import 'mint-ui/lib/style.css';
+import router from './router'
+import { sync } from 'vuex-router-sync'
+import * as filters from './filters'
 
-Vue.use(Mint);
+import ElementUI from 'element-ui'
+import './assets/css/ele-cy-theme.css'
+Vue.use(ElementUI)
+
+// sync the router with the vuex store.
+// this registers `store.state.route`
+sync(store, router);
 
 
 new Vue({
- store,
- router,
- ...App
- }).$mount('#app');
-
-
+  store,
+  router,
+  ...App
+}).$mount('#app');
